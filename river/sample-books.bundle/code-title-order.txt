@@ -1,0 +1,6 @@
+whatsthis::What's this?
+multilevel::Document hierarchy
+weblink::Web link
+email::E-mail link
+epub::Include .epub files
+live::Here's a live version
