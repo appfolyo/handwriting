@@ -18,6 +18,7 @@
 		D72B7A602F269ACD00ECF145 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D72B7A5B2F269ACD00ECF145 /* Localizable.xcstrings */; };
 		D77E212E2CAD529C00EB2A88 /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E212D2CAD529C00EB2A88 /* ContentTableViewController.swift */; };
 		D7D51F3A2F2F62D4003E83C6 /* sample-books.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D7D51F392F2F62D4003E83C6 /* sample-books.bundle */; };
+		D7E99F362F30C38E00A5C319 /* books.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D7E99F352F30C38E00A5C319 /* books.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		D72B7A5C2F269ACD00ECF145 /* GenerateTextClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateTextClass.swift; sourceTree = "<group>"; };
 		D77E212D2CAD529C00EB2A88 /* ContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewController.swift; sourceTree = "<group>"; };
 		D7D51F392F2F62D4003E83C6 /* sample-books.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "sample-books.bundle"; sourceTree = "<group>"; };
+		D7E99F352F30C38E00A5C319 /* books.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = books.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 		D70275F32CA9EE5D00C3B1FB /* river */ = {
 			isa = PBXGroup;
 			children = (
+				D7E99F352F30C38E00A5C319 /* books.bundle */,
 				D72B7A5A2F269ACD00ECF145 /* Generated */,
 				D72B7A5B2F269ACD00ECF145 /* Localizable.xcstrings */,
 				D72B7A5D2F269ACD00ECF145 /* Scripts */,
@@ -160,6 +163,7 @@
 			files = (
 				D70276012CA9EE6200C3B1FB /* Assets.xcassets in Resources */,
 				D72B7A602F269ACD00ECF145 /* Localizable.xcstrings in Resources */,
+				D7E99F362F30C38E00A5C319 /* books.bundle in Resources */,
 				D70276042CA9EE6200C3B1FB /* Base in Resources */,
 				D7D51F3A2F2F62D4003E83C6 /* sample-books.bundle in Resources */,
 				D70275FC2CA9EE5D00C3B1FB /* Base in Resources */,
