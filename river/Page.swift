@@ -13,20 +13,20 @@ class Page {
     var assetURL: URL?
     var title: String?
     var lastUpdated: Date?
-    var invertable: Bool = true
+    var isInvertable: Bool = true
     
-    var lastVisitedKey: String {
+    var lastDisplayedKey: String {
         guard let assetURL else {
             return ""
         }
-        return "last_visited_" + assetURL.lastPathComponent
+        return "last_displayed_" + assetURL.lastPathComponent
     }
     
     var isNew: Bool {
         guard let lastUpdated = lastUpdated else {
             return false
         }
-        let lastVisited = UserDefaults.standard.object(forKey: lastVisitedKey) as? Date
+        let lastVisited = UserDefaults.standard.object(forKey: lastDisplayedKey) as? Date
         return lastUpdated > lastVisited ?? .distantPast
 
     }

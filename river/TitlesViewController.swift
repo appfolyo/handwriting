@@ -97,14 +97,7 @@ class TitlesViewController: ImageDisplayTableViewController {
                 if components.count > 1, let currentTitle = pages.first(where: { code == $0.code }) {
                     currentTitle.title = components[1].trimmingCharacters(in: .whitespaces)
                     if components.count > 2 {
-                        
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "yyyyMMdd"
-                        formatter.locale = Locale(identifier: "en_US_POSIX")
-
-                        if let date = formatter.date(from: components[2].trimmingCharacters(in: .whitespaces)) {
-                            currentTitle.lastUpdated = date
-                        }
+                        currentTitle.lastUpdated = components[2].toDateyyyyMMdd()
                     }
                 }
             }
@@ -134,7 +127,7 @@ class TitlesViewController: ImageDisplayTableViewController {
         
         
         let title = pages[tableView.indexPathForSelectedRow!.row]
-        UserDefaults.standard.set(Date(), forKey: title.lastVisitedKey)
+        UserDefaults.standard.set(Date(), forKey: title.lastDisplayedKey)
 
         switch title.contentType {
         case .pages:

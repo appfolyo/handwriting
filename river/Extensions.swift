@@ -51,6 +51,16 @@ enum UserInterfaceStyle: String {
     }
 }
 
+extension String {
+    func toDateyyyyMMdd() -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+
+        return formatter.date(from: self.trimmingCharacters(in: .whitespaces)) 
+    }
+}
+
 class AutoInvertImageView: UIImageView {
     
     var isInvertable: Bool = true

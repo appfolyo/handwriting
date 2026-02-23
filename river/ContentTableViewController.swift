@@ -42,7 +42,16 @@ class ContentTableViewController: ImageDisplayTableViewController {
                 let imageURL = assetURL.appendingPathComponent(fileName + acceptedFiletype)
                 let page = Page()
                 page.image = UIImage(contentsOfFile: imageURL.path)!
-                page.invertable = !fileName.contains("no-invert")
+                page.isInvertable = !fileName.contains("no-invert")
+                let lastUpdatedString = "lastupdated"
+                if fileName.contains(lastUpdatedString) {
+                    let fileNameComponents = fileName.components(separatedBy: "-")
+                    if let lastUpdatedIndex = fileNameComponents.firstIndex(where: { $0.hasSuffix(lastUpdatedString) }),
+                       fileNameComponents.count > lastUpdatedIndex {
+                        pages.forEach({ $0.lastUpdated = nil })
+                        page.lastUpdated = fileNameComponents[lastUpdatedIndex + 1].toDateyyyyMMdd()
+                    }
+                }
                 pages.append(page)
             }
                 
@@ -51,7 +60,7 @@ class ContentTableViewController: ImageDisplayTableViewController {
             let clearImage = UIColor.clear.image(clearImageSize)
             let clearPage = Page()
             clearPage.image = clearImage
-            clearPage.invertable = true
+            clearPage.isInvertable = true
             pages.append(clearPage)
         }
         
@@ -114,17 +123,21 @@ class ContentTableViewController: ImageDisplayTableViewController {
         
         let page = pages[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "content", for: indexPath) as! ImageCell
-        cell.contentImageView.isInvertable = page.invertable
+        cell.contentImageView.isInvertable = page.isInvertable
         cell.contentImageView.image = page.image
-        if !page.invertable {
-            print("no-invertable")
-        }
+        cell.newLabel.isHidden = !page.isNew
+        cell.newLabel.text = Text.new
         return cell
     }
     
     var reviewRequested = false
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var index = currentIndex ?? 0
+        
+        if index > 0, pages.count > index + 1, pages[index - 1].isNew {
+            UserDefaults.standard.set(Date(), forKey: pages[index - 1].lastDisplayedKey)
+        }
+        
         let pageCount = tableView.numberOfRows(inSection: 0)
         if tableView.indexPathsForVisibleRows?.last?.row == pageCount - 1  {
             index = pageCount - 3
