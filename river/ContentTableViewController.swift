@@ -11,7 +11,6 @@ import StoreKit
 class ContentTableViewController: ImageDisplayTableViewController {
         
     let pageCounterButton = UIButton(type: .custom)
-    var nonInvertableImageIndexes: Set<Int> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,17 +40,21 @@ class ContentTableViewController: ImageDisplayTableViewController {
             
             fileNames.forEach { fileName in
                 let imageURL = assetURL.appendingPathComponent(fileName + acceptedFiletype)
-                images.append(UIImage(contentsOfFile: imageURL.path)!)
-                if fileName.contains("no-invert") {
-                    nonInvertableImageIndexes.insert(fileNames.firstIndex(of: fileName)!)
-                }
+                let page = Page()
+                page.image = UIImage(contentsOfFile: imageURL.path)!
+                page.invertable = !fileName.contains("no-invert")
+                pages.append(page)
             }
                 
             var clearImageSize = UIScreen.main.bounds.size
             clearImageSize.height *= 0.5
             let clearImage = UIColor.clear.image(clearImageSize)
-            images.append(clearImage)
+            let clearPage = Page()
+            clearPage.image = clearImage
+            clearPage.invertable = true
+            pages.append(clearPage)
         }
+        
         catch let error as NSError {
             print(error)
         }
@@ -109,9 +112,13 @@ class ContentTableViewController: ImageDisplayTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: nonInvertableImageIndexes.contains(indexPath.row) ? "noninvertable" : "content", for: indexPath)
-        (cell as? ImageCell)?.contentImageView.image = images[indexPath.row]
-        (cell as? NonInvertableImageCell)?.contentImageView.image = images[indexPath.row]
+        let page = pages[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "content", for: indexPath) as! ImageCell
+        cell.contentImageView.isInvertable = page.invertable
+        cell.contentImageView.image = page.image
+        if !page.invertable {
+            print("no-invertable")
+        }
         return cell
     }
     

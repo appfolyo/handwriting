@@ -16,39 +16,7 @@ class TitlesViewController: ImageDisplayTableViewController {
     var parentBundleURL = Bundle.main.bundleURL
     var bundleTitle = Text.mainTitle
     let fileManager = FileManager.default
-    
-    var titles: [Title] = []
-    
-    class Title {
-        var code: String?
-        var image: UIImage?
-        var assetURL: URL?
-        var title: String?
-        var lastUpdated: Date?
-        var lastVisitedKey: String {
-            guard let assetURL else {
-                return ""
-            }
-            return "last_visited_" + assetURL.lastPathComponent
-        }
-        
-        var isNew: Bool {
-            guard let lastUpdated = lastUpdated else {
-                return false
-            }
-            let lastVisited = UserDefaults.standard.object(forKey: lastVisitedKey) as? Date
-            return lastUpdated > lastVisited ?? .distantPast
 
-        }
-        
-        enum ContentType: String {
-            case bundle, pages, epub, url
-        }
-        var contentType: ContentType = .pages
-        
-        
-    }
-    
     var codeTitle: [String: String] = [:]
     
     var interfaceStyle: UserInterfaceStyle = defaultInterfaceStyle
@@ -88,9 +56,9 @@ class TitlesViewController: ImageDisplayTableViewController {
             for item in contents {
                 let filename = item.lastPathComponent
                 if filename.hasSuffix(".bundle") {
-                    let newTitle = Title()
+                    let newTitle = Page()
                     newTitle.code = filename.split(separator: ".").dropLast().joined(separator: ".")
-                    titles.append(newTitle)
+                    pages.append(newTitle)
                     let assetURL = item
                     newTitle.assetURL = assetURL
                     
@@ -101,9 +69,9 @@ class TitlesViewController: ImageDisplayTableViewController {
                             if item.lastPathComponent == "title.heic" {
                                 let bundle = Bundle(url: assetURL)
                                 newTitle.image = .init(named: item.lastPathComponent, in: bundle, with: nil)
-                            } else if item.lastPathComponent.hasSuffix(Title.ContentType.bundle.rawValue) {
+                            } else if item.lastPathComponent.hasSuffix(Page.ContentType.bundle.rawValue) {
                                 newTitle.contentType = .bundle
-                            } else if item.lastPathComponent.hasSuffix(Title.ContentType.epub.rawValue) {
+                            } else if item.lastPathComponent.hasSuffix(Page.ContentType.epub.rawValue) {
                                 newTitle.contentType = .epub
                                 newTitle.assetURL = item
                             } else if item.lastPathComponent == "action.txt" {
@@ -126,7 +94,7 @@ class TitlesViewController: ImageDisplayTableViewController {
                 let components = line.components(separatedBy: "::")
                 guard !components.isEmpty else { return }
                 let code = components[0].trimmingCharacters(in: .whitespaces)
-                if components.count > 1, let currentTitle = titles.first(where: { code == $0.code }) {
+                if components.count > 1, let currentTitle = pages.first(where: { code == $0.code }) {
                     currentTitle.title = components[1].trimmingCharacters(in: .whitespaces)
                     if components.count > 2 {
                         
@@ -141,8 +109,8 @@ class TitlesViewController: ImageDisplayTableViewController {
                 }
             }
             
-            titles = fileOrder.compactMap{ code in
-                titles.first(where: { $0.code == code.components(separatedBy: "::").first ?? "" })
+            pages = fileOrder.compactMap{ code in
+                pages.first(where: { $0.code == code.components(separatedBy: "::").first ?? "" })
             }
         }
         catch let error as NSError {
@@ -157,11 +125,6 @@ class TitlesViewController: ImageDisplayTableViewController {
         tableView.reloadData()
     }
     
-    override var images: [UIImage] {
-        get { return titles.compactMap{ $0.image } }
-        set { fatalError("Not implemented") }
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         tableView.reloadData()
@@ -170,7 +133,7 @@ class TitlesViewController: ImageDisplayTableViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         
-        let title = titles[tableView.indexPathForSelectedRow!.row]
+        let title = pages[tableView.indexPathForSelectedRow!.row]
         UserDefaults.standard.set(Date(), forKey: title.lastVisitedKey)
 
         switch title.contentType {
@@ -201,32 +164,19 @@ class TitlesViewController: ImageDisplayTableViewController {
         guard let destination = segue.destination as? ContentTableViewController,
             let row = tableView.indexPathForSelectedRow?.row else { return }
         
-        destination.assetURL = titles[row].assetURL
-        destination.title = titles[row].title
+        destination.assetURL = pages[row].assetURL
+        destination.title = pages[row].title
         
     }
         
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as! ImageCell
-        cell.contentImageView.image = titles[indexPath.row].image
-        cell.newLabel.isHidden = !titles[indexPath.row].isNew
+        cell.contentImageView.image = pages[indexPath.row].image
+        cell.newLabel.isHidden = !pages[indexPath.row].isNew
         cell.newLabel.text = Text.new.uppercased()
-        cell.linkSymbol.isHidden = titles[indexPath.row].contentType != .url || titles[indexPath.row].isNew
+        cell.linkSymbol.isHidden = pages[indexPath.row].contentType != .url || pages[indexPath.row].isNew
         return cell
     }
     
-}
-
-class ImageCell: UITableViewCell {
-    @IBOutlet weak var contentImageView: AutoInvertImageView!
-    
-    @IBOutlet weak var linkSymbol: UIImageView!
-    
-    @IBOutlet weak var newLabel: RoundedPaddingLabel!
-    
-}
-
-class NonInvertableImageCell: UITableViewCell {
-    @IBOutlet weak var contentImageView: UIImageView!
 }

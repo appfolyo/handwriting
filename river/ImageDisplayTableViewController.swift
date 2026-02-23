@@ -10,11 +10,7 @@ import UIKit
 class ImageDisplayTableViewController: UITableViewController {
     
     var assetURL: URL!
-    private var _images: [UIImage] = []
-    var images: [UIImage] {
-        get { return _images }
-        set { _images = newValue }
-    }
+    var pages: [Page] = []
 
     var defaultsKey: String {
         "index_"+assetURL.lastPathComponent
@@ -51,12 +47,14 @@ class ImageDisplayTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let image = images[indexPath.row]
+        guard let image = pages[indexPath.row].image else {
+            return 0
+        }
         return image.size.height * tableView.frame.width / image.size.width
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return images.count
+        return pages.count
     }
 
 }

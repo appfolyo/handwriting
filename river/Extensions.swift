@@ -52,11 +52,19 @@ enum UserInterfaceStyle: String {
 }
 
 class AutoInvertImageView: UIImageView {
+    
+    var isInvertable: Bool = true
+    
     override var image: UIImage? {
         get {
             return super.image
         }
         set {
+            guard isInvertable else {
+                super.image = newValue
+                return
+            }
+            
             let interfaceStyle = UserDefaults.standard.string(forKey: "interfaceStyle") ?? defaultInterfaceStyle.rawValue
             if let style = UserInterfaceStyle(rawValue: interfaceStyle), style != .system {
                 

@@ -18,6 +18,8 @@
 		D72B7A602F269ACD00ECF145 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D72B7A5B2F269ACD00ECF145 /* Localizable.xcstrings */; };
 		D76F31E42F4BBBEC0089D106 /* RoundedPaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76F31E32F4BBBE90089D106 /* RoundedPaddingLabel.swift */; };
 		D76F31E62F4BC1ED0089D106 /* ImageDisplayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76F31E52F4BC1ED0089D106 /* ImageDisplayTableViewController.swift */; };
+		D76F31E82F4CA5630089D106 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76F31E72F4CA55E0089D106 /* Page.swift */; };
+		D76F31EA2F4CAA500089D106 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76F31E92F4CAA500089D106 /* ImageCell.swift */; };
 		D77E212E2CAD529C00EB2A88 /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E212D2CAD529C00EB2A88 /* ContentTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		D72B7A5C2F269ACD00ECF145 /* GenerateTextClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateTextClass.swift; sourceTree = "<group>"; };
 		D76F31E32F4BBBE90089D106 /* RoundedPaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedPaddingLabel.swift; sourceTree = "<group>"; };
 		D76F31E52F4BC1ED0089D106 /* ImageDisplayTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDisplayTableViewController.swift; sourceTree = "<group>"; };
+		D76F31E72F4CA55E0089D106 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		D76F31E92F4CAA500089D106 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		D77E212D2CAD529C00EB2A88 /* ContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewController.swift; sourceTree = "<group>"; };
 		D7D51F392F2F62D4003E83C6 /* sample-books.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "sample-books.bundle"; sourceTree = "<group>"; };
 		D7E99F352F30C38E00A5C319 /* books.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = books.bundle; sourceTree = "<group>"; };
@@ -81,8 +85,10 @@
 				D709973D2DA6D1D500FDE598 /* Extensions.swift */,
 				D70275FA2CA9EE5D00C3B1FB /* Main.storyboard */,
 				D70275F82CA9EE5D00C3B1FB /* TitlesViewController.swift */,
+				D76F31E92F4CAA500089D106 /* ImageCell.swift */,
 				D77E212D2CAD529C00EB2A88 /* ContentTableViewController.swift */,
 				D76F31E52F4BC1ED0089D106 /* ImageDisplayTableViewController.swift */,
+				D76F31E72F4CA55E0089D106 /* Page.swift */,
 				D70276002CA9EE6200C3B1FB /* Assets.xcassets */,
 				D70276022CA9EE6200C3B1FB /* LaunchScreen.storyboard */,
 				D70276052CA9EE6200C3B1FB /* Info.plist */,
@@ -206,9 +212,11 @@
 				D709973E2DA6D1DA00FDE598 /* Extensions.swift in Sources */,
 				D72B7A5E2F269ACD00ECF145 /* Text.swift in Sources */,
 				D70275F52CA9EE5D00C3B1FB /* AppDelegate.swift in Sources */,
+				D76F31E82F4CA5630089D106 /* Page.swift in Sources */,
 				D70275F72CA9EE5D00C3B1FB /* SceneDelegate.swift in Sources */,
 				D77E212E2CAD529C00EB2A88 /* ContentTableViewController.swift in Sources */,
 				D76F31E42F4BBBEC0089D106 /* RoundedPaddingLabel.swift in Sources */,
+				D76F31EA2F4CAA500089D106 /* ImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
