@@ -71,7 +71,7 @@ class ContentTableViewController: ImageDisplayTableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: pageCounterButton)
 
     }
-
+    
     @objc func pageCounterTapped() {
 
         let alert = UIAlertController(
@@ -133,7 +133,6 @@ class ContentTableViewController: ImageDisplayTableViewController {
                 SKStoreReviewController.requestReview(in: scene)
             }
         }
-        UserDefaults.standard.set(currentIndex, forKey: defaultsKey)
 
     }
 
@@ -150,52 +149,4 @@ extension UIColor {
             rendererContext.fill(CGRect(origin: .zero, size: size))
         }
     }
-}
-
-class ImageDisplayTableViewController: UITableViewController {
-    
-    var assetURL: URL!
-    private var _images: [UIImage] = []
-    var images: [UIImage] {
-        get { return _images }
-        set { _images = newValue }
-    }
-
-    var defaultsKey: String {
-        "index_"+assetURL.lastPathComponent
-    }
-
-    fileprivate func jump(to page: Int, animated: Bool = false) {
-        var page = page
-        if page >= tableView(tableView, numberOfRowsInSection: 0) {
-            page = tableView(tableView, numberOfRowsInSection: 0) - 1
-        }
-        if page < 0 {
-            page = 0
-        }
-        if page < tableView(tableView, numberOfRowsInSection: 0) {
-            tableView.scrollToRow(at: IndexPath(row: page, section: 0), at: .bottom, animated: animated)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        let index = UserDefaults.standard.integer(forKey: defaultsKey)
-        jump(to: index)
-    }
-    
-    var currentIndex: Int? {
-        tableView.indexPathsForVisibleRows?.first?.row
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let image = images[indexPath.row]
-        return image.size.height * tableView.frame.width / image.size.width
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return images.count
-    }
-
 }

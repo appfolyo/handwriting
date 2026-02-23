@@ -11,5 +11,6 @@ class Text {
     static var jump : String { NSLocalizedString("jump", comment: "jump") }
     static var jumpToPage : String { NSLocalizedString("jumpToPage", comment: "jumpToPage") }
     static var mainTitle : String { NSLocalizedString("mainTitle", comment: "mainTitle") }
+    static var new : String { NSLocalizedString("new", comment: "new") }
     static var pageNumber : String { NSLocalizedString("pageNumber", comment: "pageNumber") }
 }

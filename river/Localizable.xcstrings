@@ -91,6 +91,24 @@
         }
       }
     },
+    "new" : {
+      "extractionState" : "manual",
+      "generatesSymbol" : false,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "new"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "új"
+          }
+        }
+      }
+    },
     "pageNumber" : {
       "extractionState" : "manual",
       "generatesSymbol" : false,

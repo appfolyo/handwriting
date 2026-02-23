@@ -96,19 +96,47 @@
                                             <rect key="frame" x="361.66666666666669" y="15.333333333333329" width="21.333333333333314" height="20.666666666666671"/>
                                             <color key="tintColor" systemColor="linkColor"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncT-UG-UbT" customClass="RoundedPaddingLabel" customModule="river" customModuleProvider="target">
+                                            <rect key="frame" x="348.33333333333331" y="16.333333333333329" width="34.666666666666686" height="18.666666666666671"/>
+                                            <color key="backgroundColor" red="0.19607843459999999" green="0.84313726430000002" blue="0.2941176593" alpha="1" colorSpace="deviceRGB"/>
+                                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                    <real key="value" value="7"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                    <real key="value" value="7"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="LNB-LH-oxN" secondAttribute="trailing" constant="10" id="FvW-vD-991"/>
                                         <constraint firstAttribute="trailing" secondItem="KdY-KN-da5" secondAttribute="trailing" id="HUE-tk-vID"/>
+                                        <constraint firstItem="ncT-UG-UbT" firstAttribute="centerY" secondItem="gc2-1J-Yml" secondAttribute="centerY" id="JfX-5k-uwy"/>
+                                        <constraint firstAttribute="trailing" secondItem="ncT-UG-UbT" secondAttribute="trailing" constant="10" id="Jt4-zm-bWr"/>
                                         <constraint firstItem="KdY-KN-da5" firstAttribute="leading" secondItem="gc2-1J-Yml" secondAttribute="leading" id="ctF-a1-MhI"/>
                                         <constraint firstAttribute="bottom" secondItem="KdY-KN-da5" secondAttribute="bottom" id="joV-7g-dhd"/>
                                         <constraint firstItem="LNB-LH-oxN" firstAttribute="centerY" secondItem="gc2-1J-Yml" secondAttribute="centerY" id="kNz-P7-0Gs"/>
                                         <constraint firstItem="KdY-KN-da5" firstAttribute="top" secondItem="gc2-1J-Yml" secondAttribute="top" id="xON-jU-8zN"/>
+                                        <constraint firstItem="ncT-UG-UbT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gc2-1J-Yml" secondAttribute="leading" constant="20" symbolic="YES" id="yNC-1O-Eme"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="contentImageView" destination="KdY-KN-da5" id="fiy-DE-Vi1"/>
                                     <outlet property="linkSymbol" destination="LNB-LH-oxN" id="UHx-zA-UnZ"/>
+                                    <outlet property="newLabel" destination="ncT-UG-UbT" id="APb-Zb-zLy"/>
                                     <segue destination="oBO-0o-pID" kind="show" id="pQK-ig-A6J"/>
                                 </connections>
                             </tableViewCell>

@@ -24,11 +24,29 @@ class TitlesViewController: ImageDisplayTableViewController {
         var image: UIImage?
         var assetURL: URL?
         var title: String?
+        var lastUpdated: Date?
+        var lastVisitedKey: String {
+            guard let assetURL else {
+                return ""
+            }
+            return "last_visited_" + assetURL.lastPathComponent
+        }
+        
+        var isNew: Bool {
+            guard let lastUpdated = lastUpdated else {
+                return false
+            }
+            let lastVisited = UserDefaults.standard.object(forKey: lastVisitedKey) as? Date
+            return lastUpdated > lastVisited ?? .distantPast
+
+        }
         
         enum ContentType: String {
             case bundle, pages, epub, url
         }
         var contentType: ContentType = .pages
+        
+        
     }
     
     var codeTitle: [String: String] = [:]
@@ -108,8 +126,18 @@ class TitlesViewController: ImageDisplayTableViewController {
                 let components = line.components(separatedBy: "::")
                 guard !components.isEmpty else { return }
                 let code = components[0].trimmingCharacters(in: .whitespaces)
-                if components.count > 1 {
-                    titles.first(where: { code == $0.code })?.title = components[1].trimmingCharacters(in: .whitespaces)
+                if components.count > 1, let currentTitle = titles.first(where: { code == $0.code }) {
+                    currentTitle.title = components[1].trimmingCharacters(in: .whitespaces)
+                    if components.count > 2 {
+                        
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yyyyMMdd"
+                        formatter.locale = Locale(identifier: "en_US_POSIX")
+
+                        if let date = formatter.date(from: components[2].trimmingCharacters(in: .whitespaces)) {
+                            currentTitle.lastUpdated = date
+                        }
+                    }
                 }
             }
             
@@ -140,7 +168,11 @@ class TitlesViewController: ImageDisplayTableViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        
         let title = titles[tableView.indexPathForSelectedRow!.row]
+        UserDefaults.standard.set(Date(), forKey: title.lastVisitedKey)
+
         switch title.contentType {
         case .pages:
             return true
@@ -178,7 +210,9 @@ class TitlesViewController: ImageDisplayTableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as! ImageCell
         cell.contentImageView.image = titles[indexPath.row].image
-        cell.linkSymbol.isHidden = titles[indexPath.row].contentType != .url
+        cell.newLabel.isHidden = !titles[indexPath.row].isNew
+        cell.newLabel.text = Text.new.uppercased()
+        cell.linkSymbol.isHidden = titles[indexPath.row].contentType != .url || titles[indexPath.row].isNew
         return cell
     }
     
@@ -188,6 +222,9 @@ class ImageCell: UITableViewCell {
     @IBOutlet weak var contentImageView: AutoInvertImageView!
     
     @IBOutlet weak var linkSymbol: UIImageView!
+    
+    @IBOutlet weak var newLabel: RoundedPaddingLabel!
+    
 }
 
 class NonInvertableImageCell: UITableViewCell {
