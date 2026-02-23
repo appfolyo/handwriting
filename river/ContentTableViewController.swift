@@ -87,19 +87,19 @@ class ContentTableViewController: ImageDisplayTableViewController {
     @objc func pageCounterTapped() {
 
         let alert = UIAlertController(
-            title: Text.jumpToPage,
-            message: Text.givePageNumber,
+            title: .jumpToPage,
+            message: .givePageNumber,
             preferredStyle: .alert
         )
 
         alert.addTextField { textField in
-            textField.placeholder = Text.pageNumber
+            textField.placeholder = .pageNumber
             textField.keyboardType = .numberPad
         }
 
-        let cancelAction = UIAlertAction(title: Text.cancel, style: .cancel)
+        let cancelAction = UIAlertAction(title: .cancel, style: .cancel)
 
-        let okAction = UIAlertAction(title: Text.jump, style: .default) { _ in
+        let okAction = UIAlertAction(title: .jump, style: .default) { _ in
             guard
                 let text = alert.textFields?.first?.text,
                 let page = Int(text)
@@ -128,7 +128,7 @@ class ContentTableViewController: ImageDisplayTableViewController {
         cell.contentImageView.isInvertable = page.isInvertable
         cell.contentImageView.image = page.image
         cell.newLabel.isHidden = !page.isNew
-        cell.newLabel.text = Text.new.uppercased() + " — " + (page.lastUpdated?.formatted(date: .abbreviated, time: .omitted) ?? "")
+        cell.newLabel.text = .newPages + " — " + (page.lastUpdated?.formatted(date: .abbreviated, time: .omitted) ?? "")
         cell.newLabelHeight.constant = page.isNew ? newLabelHeight : 0
         return cell
     }

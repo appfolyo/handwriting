@@ -3,8 +3,8 @@
 import Foundation
 
 let xcstringsPath = "Localizable.xcstrings"
-let outputPath = "Generated/Text.swift"
-let language = "en" 
+let outputPath = "Generated/Strings+LocalizedExtension.swift"
+let language = "en"
 
 struct XCStringFile: Decodable {
     struct StringEntry: Decodable {
@@ -32,7 +32,7 @@ do {
     var lines: [String] = []
     lines.append("// 🚀 Auto-generated file. Do not edit manually. Run this from command line:\n// swift Scripts/GenerateTextClass.swift\n\n")
     lines.append("import Foundation\n")
-    lines.append("class Text {\n")
+    lines.append("extension String {\n")
 
     for key in keys {
         let value = xcstrings.strings[key]?.localizations?[language]?.value ?? key
@@ -45,7 +45,7 @@ do {
     try FileManager.default.createDirectory(atPath: (outputPath as NSString).deletingLastPathComponent, withIntermediateDirectories: true)
     try output.write(toFile: outputPath, atomically: true, encoding: .utf8)
 
-    print("✅ Text.swift generated successfully at \(outputPath)")
+    print("✅ \(outputPath) generated successfully at \(outputPath)")
 } catch {
     print("❌ Error:", error)
 }

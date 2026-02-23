@@ -109,6 +109,24 @@
         }
       }
     },
+    "newPages" : {
+      "extractionState" : "manual",
+      "generatesSymbol" : false,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New pages"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Új oldalak"
+          }
+        }
+      }
+    },
     "pageNumber" : {
       "extractionState" : "manual",
       "generatesSymbol" : false,

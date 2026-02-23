@@ -14,7 +14,7 @@ class TitlesViewController: ImageDisplayTableViewController {
     var rootBundleName = "books.bundle"
     let sampleBundleName = "sample-books.bundle"
     var parentBundleURL = Bundle.main.bundleURL
-    var bundleTitle = Text.mainTitle
+    var bundleTitle = String.mainTitle
     let fileManager = FileManager.default
 
     var codeTitle: [String: String] = [:]
@@ -167,7 +167,7 @@ class TitlesViewController: ImageDisplayTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as! ImageCell
         cell.contentImageView.image = pages[indexPath.row].image
         cell.newLabel.isHidden = !pages[indexPath.row].isNew
-        cell.newLabel.text = Text.new.uppercased()
+        cell.newLabel.text = .new.uppercased()
         cell.linkSymbol.isHidden = pages[indexPath.row].contentType != .url || pages[indexPath.row].isNew
         return cell
     }

@@ -4,7 +4,7 @@
 
 import Foundation
 
-class Text {
+extension String {
 
     static var cancel : String { NSLocalizedString("cancel", comment: "cancel") }
     static var givePageNumber : String { NSLocalizedString("givePageNumber", comment: "givePageNumber") }
@@ -12,5 +12,6 @@ class Text {
     static var jumpToPage : String { NSLocalizedString("jumpToPage", comment: "jumpToPage") }
     static var mainTitle : String { NSLocalizedString("mainTitle", comment: "mainTitle") }
     static var new : String { NSLocalizedString("new", comment: "new") }
+    static var newPages : String { NSLocalizedString("newPages", comment: "newPages") }
     static var pageNumber : String { NSLocalizedString("pageNumber", comment: "pageNumber") }
 }
