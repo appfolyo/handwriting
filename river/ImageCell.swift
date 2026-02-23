@@ -13,5 +13,5 @@ class ImageCell: UITableViewCell {
     @IBOutlet weak var linkSymbol: UIImageView!
     
     @IBOutlet weak var newLabel: RoundedPaddingLabel!
-    
+    @IBOutlet weak var newLabelHeight: NSLayoutConstraint!
 }

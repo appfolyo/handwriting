@@ -119,6 +119,8 @@ class ContentTableViewController: ImageDisplayTableViewController {
     
     // MARK: - Table view data source
 
+    let newLabelHeight = 40.0
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let page = pages[indexPath.row]
@@ -126,8 +128,14 @@ class ContentTableViewController: ImageDisplayTableViewController {
         cell.contentImageView.isInvertable = page.isInvertable
         cell.contentImageView.image = page.image
         cell.newLabel.isHidden = !page.isNew
-        cell.newLabel.text = Text.new
+        cell.newLabel.text = Text.new.uppercased() + " — " + (page.lastUpdated?.formatted(date: .abbreviated, time: .omitted) ?? "")
+        cell.newLabelHeight.constant = page.isNew ? newLabelHeight : 0
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        super.tableView(tableView, heightForRowAt: indexPath)
+        + (pages[indexPath.row].isNew ? newLabelHeight : 0)
     }
     
     var reviewRequested = false
