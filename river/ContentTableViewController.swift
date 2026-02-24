@@ -147,8 +147,13 @@ class ContentTableViewController: ImageDisplayTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if pages[indexPath.row].contentType == .subscription {
-            print("subscribe!!!" + subscriptionTitle!)
+        if pages[indexPath.row].contentType == .subscription,
+           let appName = Bundle.main.object( forInfoDictionaryKey: "CFBundleDisplayName") as? String,
+           let url = URL(string:"mailto:catanore@icloud.com?subject=" + appName + " " + .emailSubject + "&body=" +
+            .emailTextBeforeTitle + (subscriptionTitle ?? title ?? "") + "\n" +
+            .emailTextAfterTitle1 + "\n" + .emailTextAfterTitle2
+           ) {
+            UIApplication.shared.open(url)
         }
     }
     

@@ -19,6 +19,72 @@
         }
       }
     },
+    "emailSubject" : {
+      "extractionState" : "manual",
+      "generatesSymbol" : false,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "app subscription"
+          }
+        }
+      }
+    },
+    "emailTextAfterTitle1" : {
+      "extractionState" : "manual",
+      "generatesSymbol" : false,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "and all other updates."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "És minden más újdonság is érdekel."
+          }
+        }
+      }
+    },
+    "emailTextAfterTitle2" : {
+      "extractionState" : "manual",
+      "generatesSymbol" : false,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Also send me e-mails about news, e.g. offline events."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ezen kívül ha van bármi, ami a Folyó nevű appal kapcsolatos, arról is kérek e-mail-ben értesítést. (Pl. író-olvasó találkozókról.)"
+          }
+        }
+      }
+    },
+    "emailTextBeforeTitle" : {
+      "extractionState" : "manual",
+      "generatesSymbol" : false,
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please subscribe me for the updates of "
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feliratkozom a Folyó appban a következő rovat frissítéseire: "
+          }
+        }
+      }
+    },
     "givePageNumber" : {
       "extractionState" : "manual",
       "generatesSymbol" : false,
