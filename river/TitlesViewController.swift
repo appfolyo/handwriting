@@ -150,6 +150,8 @@ class TitlesViewController: ImageDisplayTableViewController {
             UIApplication.shared.open(title.assetURL!)
             print ("Opening \(title.assetURL!)")
             return false
+        case .empty:
+            return false
         }
 
     }
