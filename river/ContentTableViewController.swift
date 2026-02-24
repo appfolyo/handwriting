@@ -55,13 +55,7 @@ class ContentTableViewController: ImageDisplayTableViewController {
                 pages.append(page)
             }
                 
-            var clearImageSize = UIScreen.main.bounds.size
-            clearImageSize.height *= 0.5
-            let clearImage = UIColor.clear.image(clearImageSize)
-            let clearPage = Page()
-            clearPage.image = clearImage
-            clearPage.isInvertable = true
-            pages.append(clearPage)
+            pages.append(.empty)
         }
         
         catch let error as NSError {

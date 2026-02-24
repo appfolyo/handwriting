@@ -25,8 +25,16 @@ extension UIImage {
     
 }
 
-enum UserInterfaceStyle: String {
-    case light, dark, system
+extension UIWindow {
+    static var main: UIWindow? {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            return windowScene.windows.first
+        }
+        return nil
+    }
+}
+
+extension UIUserInterfaceStyle {
     
     var icon: UIImage {
         switch self {
@@ -34,21 +42,52 @@ enum UserInterfaceStyle: String {
             return .init(systemName: "sun.max")!
         case .dark:
             return .init(systemName: "moon")!
-        case .system:
+        case .unspecified:
             return .init(systemName: "a.circle")!
+        @unknown default:
+            return UIUserInterfaceStyle.unspecified.icon
         }
     }
     
-    func toggle() -> UserInterfaceStyle {
+    var userDefaultsString: String {
+        switch self {
+        case .light:
+            return "light"
+        case .dark:
+            return "dark"
+        case .unspecified:
+            return "system"
+        @unknown default:
+            return "system"
+        }
+    }
+    
+    static func fromUserDefaultsString(_ string: String?) -> UIUserInterfaceStyle {
+        switch string {
+        case "light":
+            return .light
+        case "dark":
+            return .dark
+        case "system":
+            return .unspecified
+        default:
+            return .light
+        }
+    }
+    
+    func toggle() -> UIUserInterfaceStyle {
         switch self {
         case .light:
             return .dark
         case .dark:
-            return .system
-        case .system:
+            return .unspecified
+        case .unspecified:
             return .light
+        @unknown default:
+            return .unspecified
         }
     }
+    
 }
 
 extension String {
@@ -72,20 +111,6 @@ class AutoInvertImageView: UIImageView {
         set {
             guard isInvertable else {
                 super.image = newValue
-                return
-            }
-            
-            let interfaceStyle = UserDefaults.standard.string(forKey: "interfaceStyle") ?? defaultInterfaceStyle.rawValue
-            if let style = UserInterfaceStyle(rawValue: interfaceStyle), style != .system {
-                
-                switch style {
-                case .light:
-                    super.image = newValue
-                case .dark:
-                    super.image = newValue?.inverseImage
-                case .system:
-                    fatalError("Can't access it.")
-                }
                 return
             }
             

@@ -36,4 +36,18 @@ class Page {
     }
     var contentType: ContentType = .pages
     
+    enum PageType {
+        case normal, empty, subscription
+    }
+    var pageType: PageType = .normal
+    
+    static var empty: Page {
+        var clearImageSize = UIScreen.main.bounds.size
+        clearImageSize.height *= 0.5
+        let clearImage = UIColor.clear.image(clearImageSize)
+        let emptyPage = Page()
+        emptyPage.image = clearImage
+        return emptyPage
+    }
+    
 }
