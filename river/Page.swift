@@ -13,7 +13,8 @@ class Page {
     var assetURL: URL?
     var title: String?
     var lastUpdated: Date?
-    var isInvertable: Bool = true
+    var isInvertable = true
+    var canSubscribe = false
     
     var lastDisplayedKey: String {
         guard let assetURL else {
@@ -32,7 +33,7 @@ class Page {
     }
     
     enum ContentType: String {
-        case bundle, pages, epub, url, empty
+        case bundle, pages, epub, url, empty, subscription
     }
     var contentType: ContentType = .pages
         
@@ -44,6 +45,13 @@ class Page {
         emptyPage.image = clearImage
         emptyPage.contentType = .empty
         return emptyPage
+    }
+    
+    static func subscription(for title: String) -> Page {
+        let page = Page()
+        page.title = title
+        page.contentType = .subscription
+        return page
     }
     
 }

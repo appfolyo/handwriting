@@ -12,12 +12,12 @@
         <scene sceneID="iiT-yk-Phu">
             <objects>
                 <tableViewController id="oBO-0o-pID" customClass="ContentTableViewController" customModule="river" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="E8y-Vv-U0n">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="E8y-Vv-U0n">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="content" rowHeight="222" id="1Gm-aj-dsC" customClass="ImageCell" customModule="river" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="content" rowHeight="222" id="1Gm-aj-dsC" customClass="ImageCell" customModule="river" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="393" height="222"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Gm-aj-dsC" id="rp8-YK-xbp">
@@ -71,6 +71,58 @@
                                     <outlet property="newLabelHeight" destination="cyh-cm-XVI" id="KBa-Hq-ccT"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="subscription" rowHeight="312" id="z8U-JU-JD0" customClass="ImageCell" customModule="river" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="272" width="393" height="312"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z8U-JU-JD0" id="ymA-hK-aPk">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="312"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind me of new content" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Pw-wk-1oK" customClass="RoundedPaddingLabel" customModule="river" customModuleProvider="target">
+                                            <rect key="frame" x="59" y="172" width="275" height="40"/>
+                                            <color key="backgroundColor" red="0.19607843459999999" green="0.84313726430000002" blue="0.2941176593" alpha="1" colorSpace="deviceRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="HFB-tm-WjU"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="paddingBottom">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                                    <real key="value" value="7"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                                    <real key="value" value="7"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This doesn't end here. For new content, please subscribe for the newsletter!" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJz-tg-2uz">
+                                            <rect key="frame" x="19.666666666666657" y="30" width="353.66666666666674" height="122"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3Pw-wk-1oK" firstAttribute="centerX" secondItem="ymA-hK-aPk" secondAttribute="centerX" id="4i8-Y8-8aF"/>
+                                        <constraint firstItem="IJz-tg-2uz" firstAttribute="top" secondItem="ymA-hK-aPk" secondAttribute="top" constant="30" id="4o1-sb-ANB"/>
+                                        <constraint firstItem="IJz-tg-2uz" firstAttribute="width" secondItem="ymA-hK-aPk" secondAttribute="width" multiplier="0.9" id="9By-Ok-yM2"/>
+                                        <constraint firstItem="3Pw-wk-1oK" firstAttribute="top" secondItem="IJz-tg-2uz" secondAttribute="bottom" constant="20" id="CRo-dc-Pav"/>
+                                        <constraint firstItem="IJz-tg-2uz" firstAttribute="centerX" secondItem="ymA-hK-aPk" secondAttribute="centerX" id="HWo-r9-gRx"/>
+                                        <constraint firstItem="3Pw-wk-1oK" firstAttribute="width" secondItem="ymA-hK-aPk" secondAttribute="width" multiplier="0.7" id="RKi-dc-yvM"/>
+                                        <constraint firstAttribute="bottom" secondItem="3Pw-wk-1oK" secondAttribute="bottom" constant="100" id="brd-rL-Sfd"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="oBO-0o-pID" id="iKt-KR-K1X"/>
@@ -81,13 +133,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7oG-U1-Jx6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2802.2900763358775" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="2800.7633587786258" y="3.5211267605633805"/>
         </scene>
         <!--Titles View Controller-->
         <scene sceneID="sNa-MC-lPp">
             <objects>
                 <tableViewController storyboardIdentifier="TitlesViewController" id="7Cg-uF-yaD" customClass="TitlesViewController" customModule="river" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="yyC-rd-RoP">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="100" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="yyC-rd-RoP">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

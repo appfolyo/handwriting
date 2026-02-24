@@ -106,6 +106,12 @@ class TitlesViewController: ImageDisplayTableViewController {
                     currentTitle.title = components[1].trimmingCharacters(in: .whitespaces)
                     if components.count > 2 {
                         currentTitle.lastUpdated = components[2].toDateyyyyMMdd()
+                        
+                        if components.count > 3, components[3].lowercased() == "subscribe" {
+                            if subscriptionTitle == nil {
+                                currentTitle.canSubscribe = true
+                            }
+                        }
                     }
                 }
             }
@@ -113,6 +119,7 @@ class TitlesViewController: ImageDisplayTableViewController {
             pages = fileOrder.compactMap{ code in
                 pages.first(where: { $0.code == code.components(separatedBy: "::").first ?? "" })
             }
+            pages.last?.canSubscribe = subscriptionTitle != nil
         }
         catch let error as NSError {
           print(error)
@@ -138,6 +145,9 @@ class TitlesViewController: ImageDisplayTableViewController {
             subTitlesViewController.rootBundleName = title.assetURL!.lastPathComponent
             subTitlesViewController.parentBundleURL = assetURL
             subTitlesViewController.bundleTitle = title.title ?? ""
+            if title.canSubscribe {
+                subTitlesViewController.subscriptionTitle = subscriptionTitle ?? title.title
+            }
             navigationController?.pushViewController(subTitlesViewController, animated: true)
             return false
         case .epub:
@@ -150,7 +160,7 @@ class TitlesViewController: ImageDisplayTableViewController {
             UIApplication.shared.open(title.assetURL!)
             print ("Opening \(title.assetURL!)")
             return false
-        case .empty:
+        case .empty, .subscription:
             return false
         }
 
@@ -162,6 +172,9 @@ class TitlesViewController: ImageDisplayTableViewController {
 
         destination.assetURL = pages[row].assetURL
         destination.title = pages[row].title
+        if pages[row].canSubscribe {
+            destination.subscriptionTitle = subscriptionTitle ?? destination.title
+        }
 
     }
 

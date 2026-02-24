@@ -55,7 +55,11 @@ class ContentTableViewController: ImageDisplayTableViewController {
                 pages.append(page)
             }
                 
-            pages.append(.empty)
+            if let subscriptionTitle = subscriptionTitle {
+                pages.append(.subscription(for: subscriptionTitle))
+            } else {
+                pages.append(.empty)
+            }
         }
         
         catch let error as NSError {
@@ -118,6 +122,11 @@ class ContentTableViewController: ImageDisplayTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let page = pages[indexPath.row]
+        
+        if page.contentType == .subscription {
+            return tableView.dequeueReusableCell(withIdentifier: "subscription", for: indexPath)
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "content", for: indexPath) as! ImageCell
         cell.contentImageView.isInvertable = page.isInvertable
         cell.contentImageView.image = page.image
@@ -128,8 +137,19 @@ class ContentTableViewController: ImageDisplayTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        super.tableView(tableView, heightForRowAt: indexPath)
+        
+        if pages[indexPath.row].contentType == .subscription {
+            return UITableView.automaticDimension
+        }
+        
+        return super.tableView(tableView, heightForRowAt: indexPath)
         + (pages[indexPath.row].isNew ? newLabelHeight : 0)
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if pages[indexPath.row].contentType == .subscription {
+            print("subscribe!!!" + subscriptionTitle!)
+        }
     }
     
     var reviewRequested = false

@@ -11,6 +11,7 @@ class ImageDisplayTableViewController: UITableViewController {
     
     var assetURL: URL!
     var pages: [Page] = []
+    var subscriptionTitle: String?
 
     var defaultsKey: String {
         "index_"+assetURL.lastPathComponent
@@ -50,7 +51,7 @@ class ImageDisplayTableViewController: UITableViewController {
         guard let image = pages[indexPath.row].image else {
             return 0
         }
-        return image.size.height * tableView.frame.width / image.size.width
+        return image.size.height * tableView.bounds.width / image.size.width
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
