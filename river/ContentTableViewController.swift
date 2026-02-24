@@ -11,7 +11,7 @@ import StoreKit
 class ContentTableViewController: ImageDisplayTableViewController {
         
     let pageCounterButton = UIButton(type: .custom)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +43,8 @@ class ContentTableViewController: ImageDisplayTableViewController {
                 let page = Page()
                 page.image = UIImage(contentsOfFile: imageURL.path)!
                 page.isInvertable = !fileName.contains("no-invert")
+                page.assetURL = imageURL
+                page.code = defaultsKey
                 let lastUpdatedString = "lastupdated"
                 if fileName.contains(lastUpdatedString) {
                     let fileNameComponents = fileName.components(separatedBy: "-")

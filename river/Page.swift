@@ -20,7 +20,12 @@ class Page {
         guard let assetURL else {
             return ""
         }
-        return "last_displayed_" + assetURL.lastPathComponent
+        var key = "last_displayed_"
+        if contentType == .pages, let code = code {
+            key += code
+        }
+        key += assetURL.lastPathComponent
+        return key
     }
     
     var isNew: Bool {
