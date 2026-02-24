@@ -119,7 +119,9 @@ class TitlesViewController: ImageDisplayTableViewController {
             pages = fileOrder.compactMap{ code in
                 pages.first(where: { $0.code == code.components(separatedBy: "::").first ?? "" })
             }
-            pages.last?.canSubscribe = subscriptionTitle != nil
+            if subscriptionTitle != nil {
+                pages.last(where: { [.bundle, .pages].contains($0.contentType) })?.canSubscribe = true
+            }
         }
         catch let error as NSError {
           print(error)
