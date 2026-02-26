@@ -15,58 +15,34 @@ class ContentTableViewController: ImageDisplayTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        do {
-            let contents = try FileManager.default.contentsOfDirectory(at: assetURL, includingPropertiesForKeys: [URLResourceKey.nameKey, URLResourceKey.isDirectoryKey], options: .skipsHiddenFiles)
-            
-            var fileNames: [String] = []
-            let acceptedFiletype = ".heic"
-            let titleName = "title"
-            var hastitle: Bool = false
-            
-            for item in contents {
-                let fileName = item.lastPathComponent
-                if fileName.hasSuffix(acceptedFiletype) {
-                    if fileName == titleName + acceptedFiletype {
-                        hastitle = true
-                    } else {
-                        fileNames.append(String(fileName.dropLast(acceptedFiletype.count)))
-                    }
+        loadFileNames()
+        
+        fileNames.forEach { fileName in
+            let imageURL = assetURL.appendingPathComponent(fileName + acceptedFiletype)
+            let page = Page()
+            page.image = UIImage(contentsOfFile: imageURL.path)!
+            page.isInvertable = !fileName.contains("no-invert")
+            page.assetURL = imageURL
+            page.code = defaultsKey
+            let lastUpdatedString = "lastupdated"
+            if fileName.contains(lastUpdatedString) {
+                let fileNameComponents = fileName.components(separatedBy: "-")
+                if let lastUpdatedIndex = fileNameComponents.firstIndex(where: { $0.hasSuffix(lastUpdatedString) }),
+                   fileNameComponents.count > lastUpdatedIndex + 1 {
+                    pages.forEach({ $0.lastUpdated = nil })
+                    page.lastUpdated = fileNameComponents[lastUpdatedIndex + 1].toDateyyyyMMdd()
                 }
             }
-            fileNames.sort(using: .localizedStandard)
-            if hastitle {
-                fileNames.insert(titleName, at: 0)
-            }
-            
-            fileNames.forEach { fileName in
-                let imageURL = assetURL.appendingPathComponent(fileName + acceptedFiletype)
-                let page = Page()
-                page.image = UIImage(contentsOfFile: imageURL.path)!
-                page.isInvertable = !fileName.contains("no-invert")
-                page.assetURL = imageURL
-                page.code = defaultsKey
-                let lastUpdatedString = "lastupdated"
-                if fileName.contains(lastUpdatedString) {
-                    let fileNameComponents = fileName.components(separatedBy: "-")
-                    if let lastUpdatedIndex = fileNameComponents.firstIndex(where: { $0.hasSuffix(lastUpdatedString) }),
-                       fileNameComponents.count > lastUpdatedIndex + 1 {
-                        pages.forEach({ $0.lastUpdated = nil })
-                        page.lastUpdated = fileNameComponents[lastUpdatedIndex + 1].toDateyyyyMMdd()
-                    }
-                }
-                pages.append(page)
-            }
-                
-            if let subscriptionTitle = subscriptionTitle {
-                pages.append(.subscription(for: subscriptionTitle))
-            } else {
-                pages.append(.empty)
-            }
+            pages.append(page)
         }
         
-        catch let error as NSError {
-            print(error)
+        if let subscriptionTitle = subscriptionTitle {
+            pages.append(.subscription(for: subscriptionTitle))
+        } else {
+            pages.append(.empty)
         }
+        
+
         
         pageCounterButton.frame = CGRect(x: 0, y: 0, width: 50, height: 20)
         pageCounterButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -84,6 +60,11 @@ class ContentTableViewController: ImageDisplayTableViewController {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updatePageIndicator()
+    }
+
     @objc func pageCounterTapped() {
 
         let alert = UIAlertController(
@@ -160,22 +141,33 @@ class ContentTableViewController: ImageDisplayTableViewController {
     }
     
     var reviewRequested = false
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+    
+    func updatePageIndicator() {
         var index = currentIndex ?? 0
-        
-        if index > 0, pages.count > index + 1, pages[index - 1].isNew {
-            UserDefaults.standard.set(Date(), forKey: pages[index - 1].lastDisplayedKey)
-        }
-        
+                
         let pageCount = tableView.numberOfRows(inSection: 0)
         if tableView.indexPathsForVisibleRows?.last?.row == pageCount - 1  {
-            index = pageCount - 3
+            index = pageCount - 2
             if index < 0 {
                 index = 0
             }
         }
         pageCounterButton.setTitle("\(index+1)", for: .normal)
+
+    }
+    
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        let index = currentIndex ?? 0
+        
+        if index > 0, pages.count > index + 1, pages[index - 1].isNew {
+            UserDefaults.standard.set(Date(), forKey: pages[index - 1].lastDisplayedKey)
+        }
+        
+        updatePageIndicator()
+
         if !reviewRequested && index > 5, let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
             reviewRequested = true
             DispatchQueue.main.async {

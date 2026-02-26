@@ -12,6 +12,8 @@ class ImageDisplayTableViewController: UITableViewController {
     var assetURL: URL!
     var pages: [Page] = []
     var subscriptionTitle: String?
+    var fileNames: [String] = []
+    let acceptedFiletype = ".heic"
 
     var defaultsKey: String {
         "index_"+assetURL.lastPathComponent
@@ -25,8 +27,35 @@ class ImageDisplayTableViewController: UITableViewController {
         if page < 0 {
             page = 0
         }
-        if page < tableView(tableView, numberOfRowsInSection: 0) {
+        if page < tableView(tableView, numberOfRowsInSection: 0), page > 0 {
             tableView.scrollToRow(at: IndexPath(row: page, section: 0), at: .bottom, animated: animated)
+        }
+    }
+    
+    func loadFileNames(acceptedFiletype: String = ".heic") {
+        do {
+            let contents = try FileManager.default.contentsOfDirectory(at: assetURL, includingPropertiesForKeys: [URLResourceKey.nameKey, URLResourceKey.isDirectoryKey], options: .skipsHiddenFiles)
+            
+            let titleName = "title"
+            var hastitle: Bool = false
+            
+            for item in contents {
+                let fileName = item.lastPathComponent
+                if fileName.hasSuffix(acceptedFiletype) {
+                    if fileName == titleName + acceptedFiletype {
+                        hastitle = true
+                    } else {
+                        fileNames.append(String(fileName.dropLast(acceptedFiletype.count)))
+                    }
+                }
+            }
+            fileNames.sort(using: .localizedStandard)
+            if hastitle {
+                fileNames.insert(titleName, at: 0)
+            }
+        }
+        catch let error as NSError {
+            print(error)
         }
     }
     

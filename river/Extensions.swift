@@ -97,7 +97,6 @@ extension String {
     func toDateyyyyMMdd() -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat
-        formatter.locale = Locale(identifier: "en_US_POSIX")
 
         return formatter.date(from: self.trimmingCharacters(in: .whitespaces)) 
     }

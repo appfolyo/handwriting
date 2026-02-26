@@ -145,21 +145,21 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="title" id="rsy-TX-j9g" customClass="ImageCell" customModule="river" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="51"/>
+                                <rect key="frame" x="0.0" y="50" width="393" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rsy-TX-j9g" id="gc2-1J-Yml">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="51"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="70"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KdY-KN-da5" customClass="AutoInvertImageView" customModule="river" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="70"/>
                                         </imageView>
                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="link" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="LNB-LH-oxN">
-                                            <rect key="frame" x="361.66666666666669" y="15.333333333333329" width="21.333333333333314" height="20.666666666666671"/>
+                                            <rect key="frame" x="361.66666666666669" y="24.999999999999993" width="21.333333333333314" height="20.666666666666671"/>
                                             <color key="tintColor" systemColor="linkColor"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncT-UG-UbT" customClass="RoundedPaddingLabel" customModule="river" customModuleProvider="target">
-                                            <rect key="frame" x="348.33333333333331" y="16.333333333333329" width="34.666666666666686" height="18.666666666666671"/>
+                                            <rect key="frame" x="348.33333333333331" y="25.666666666666664" width="34.666666666666686" height="18.666666666666664"/>
                                             <color key="backgroundColor" red="0.19607843459999999" green="0.84313726430000002" blue="0.2941176593" alpha="1" colorSpace="deviceRGB"/>
                                             <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -182,23 +182,35 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="A4S-Bv-FkL">
+                                            <rect key="frame" x="19.666666666666657" y="15" width="353.66666666666674" height="40"/>
+                                            <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="A4S-Bv-FkL" firstAttribute="width" secondItem="gc2-1J-Yml" secondAttribute="width" multiplier="0.9" id="DTP-Gj-7YZ"/>
                                         <constraint firstAttribute="trailing" secondItem="LNB-LH-oxN" secondAttribute="trailing" constant="10" id="FvW-vD-991"/>
                                         <constraint firstAttribute="trailing" secondItem="KdY-KN-da5" secondAttribute="trailing" id="HUE-tk-vID"/>
                                         <constraint firstItem="ncT-UG-UbT" firstAttribute="centerY" secondItem="gc2-1J-Yml" secondAttribute="centerY" id="JfX-5k-uwy"/>
                                         <constraint firstAttribute="trailing" secondItem="ncT-UG-UbT" secondAttribute="trailing" constant="10" id="Jt4-zm-bWr"/>
                                         <constraint firstItem="KdY-KN-da5" firstAttribute="leading" secondItem="gc2-1J-Yml" secondAttribute="leading" id="ctF-a1-MhI"/>
+                                        <constraint firstItem="A4S-Bv-FkL" firstAttribute="top" secondItem="gc2-1J-Yml" secondAttribute="top" constant="15" id="dGf-yC-b4y"/>
+                                        <constraint firstItem="A4S-Bv-FkL" firstAttribute="centerX" secondItem="gc2-1J-Yml" secondAttribute="centerX" id="frF-wb-5se"/>
                                         <constraint firstAttribute="bottom" secondItem="KdY-KN-da5" secondAttribute="bottom" id="joV-7g-dhd"/>
                                         <constraint firstItem="LNB-LH-oxN" firstAttribute="centerY" secondItem="gc2-1J-Yml" secondAttribute="centerY" id="kNz-P7-0Gs"/>
+                                        <constraint firstItem="A4S-Bv-FkL" firstAttribute="centerX" secondItem="gc2-1J-Yml" secondAttribute="centerX" id="rhd-ql-Umi"/>
                                         <constraint firstItem="KdY-KN-da5" firstAttribute="top" secondItem="gc2-1J-Yml" secondAttribute="top" id="xON-jU-8zN"/>
                                         <constraint firstItem="ncT-UG-UbT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gc2-1J-Yml" secondAttribute="leading" constant="20" symbolic="YES" id="yNC-1O-Eme"/>
+                                        <constraint firstAttribute="bottom" secondItem="A4S-Bv-FkL" secondAttribute="bottom" constant="15" id="yk3-lw-Wke"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="contentImageView" destination="KdY-KN-da5" id="fiy-DE-Vi1"/>
                                     <outlet property="linkSymbol" destination="LNB-LH-oxN" id="UHx-zA-UnZ"/>
                                     <outlet property="newLabel" destination="ncT-UG-UbT" id="APb-Zb-zLy"/>
+                                    <outlet property="titleLabel" destination="A4S-Bv-FkL" id="lew-tG-pLT"/>
                                     <segue destination="oBO-0o-pID" kind="show" id="pQK-ig-A6J"/>
                                 </connections>
                             </tableViewCell>

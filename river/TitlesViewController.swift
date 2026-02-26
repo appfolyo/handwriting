@@ -14,6 +14,7 @@ class TitlesViewController: ImageDisplayTableViewController {
     var parentBundleURL = Bundle.main.bundleURL
     var bundleTitle = String.mainTitle
     let fileManager = FileManager.default
+    var isUsingDates = false
 
     var codeTitle: [String: String] = [:]
 
@@ -60,13 +61,18 @@ class TitlesViewController: ImageDisplayTableViewController {
             let contents = try fileManager.contentsOfDirectory(at: assetURL, includingPropertiesForKeys: [.nameKey, .isDirectoryKey], options: .skipsHiddenFiles)
 
             var fileOrder: [String] = []
-
+            var lastNewOnly = false
+            
             for item in contents {
                 let filename = item.lastPathComponent
                 if filename.hasSuffix(".bundle") {
+                    
                     let newTitle = Page()
                     newTitle.code = filename.split(separator: ".").dropLast().joined(separator: ".")
+                    newTitle.lastUpdated = newTitle.code?.components(separatedBy: "-").last?.toDateyyyyMMdd()
+                    newTitle.title = newTitle.lastUpdated?.formatted(date: .abbreviated, time: .omitted)
                     pages.append(newTitle)
+                    
                     let assetURL = item
                     newTitle.assetURL = assetURL
 
@@ -94,39 +100,59 @@ class TitlesViewController: ImageDisplayTableViewController {
                 }
                 else if filename == "code-title-order.txt",
                         let contents = try? String(contentsOf: item) {
-                    fileOrder = contents.split(separator: "\n").compactMap{ String( $0 )}
+                    if contents.starts(with: "use dates") {
+                        isUsingDates = true
+                        loadFileNames(acceptedFiletype: ".bundle")
+                        fileOrder = fileNames
+                        fileOrder.sort()
+                        if contents.contains("last new only") {
+                            lastNewOnly = true
+                        }
+
+                    } else {
+                        fileOrder = contents.split(separator: "\n").compactMap{ String( $0 )}
+                    }
                 }
             }
-
-            fileOrder.forEach { line in
-                let components = line.components(separatedBy: "::")
-                let code = components.first?.trimmingCharacters(in: .whitespaces) ?? ""
-                guard !components.isEmpty,
-                      let currentTitle = pages.first(where: { $0.code == code }) else {
-                    return
-                }
-
-                if components.count > 1 {
-                    currentTitle.title = components[1].trimmingCharacters(in: .whitespaces)
-                }
+            
+            if !isUsingDates {
                 
-                if components.count > 2,
-                   components[2].count == String().dateFormat.count {
+                fileOrder.forEach { line in
                     
-                    currentTitle.lastUpdated = components[2].toDateyyyyMMdd()
-                }
-                
-                if components.count > 3,
-                   components[3].lowercased() == "subscribe",
-                   subscriptionTitle == nil {
+                    let components = line.components(separatedBy: "::")
+                    let code = components.first?.trimmingCharacters(in: .whitespaces) ?? ""
+                    guard !components.isEmpty,
+                          let currentTitle = pages.first(where: { $0.code == code }) else {
+                        return
+                    }
                     
-                    currentTitle.canSubscribe = true
+                    if components.count > 1 {
+                        currentTitle.title = components[1].trimmingCharacters(in: .whitespaces)
+                    }
+                    
+                    if components.count > 2,
+                       components[2].count == String().dateFormat.count {
+                        
+                        currentTitle.lastUpdated = components[2].toDateyyyyMMdd()
+                    }
+                    
+                    if components.count > 3,
+                       components[3].lowercased() == "subscribe",
+                       subscriptionTitle == nil {
+                        
+                        currentTitle.canSubscribe = true
+                    }
                 }
             }
 
             pages = fileOrder.compactMap{ code in
                 pages.first(where: { $0.code == code.components(separatedBy: "::").first ?? "" })
             }
+            
+            if lastNewOnly {
+                pages.dropLast().forEach({ $0.lastUpdated = nil })
+            }
+            
             if subscriptionTitle != nil {
                 pages.last(where: { [.bundle, .pages].contains($0.contentType) })?.canSubscribe = true
             }
@@ -189,13 +215,19 @@ class TitlesViewController: ImageDisplayTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let page = pages[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as! ImageCell
-        let page = pages[indexPath.row]
         cell.contentImageView.image = page.image
         cell.newLabel.isHidden = !page.isNew
         cell.newLabel.text = .new.uppercased()
         cell.linkSymbol.isHidden = page.contentType != .url || page.isNew
+        
+        cell.contentImageView.isHidden = isUsingDates
+        cell.titleLabel.isHidden = !isUsingDates
+        cell.titleLabel.text = page.title
+        
         return cell
     }
 
