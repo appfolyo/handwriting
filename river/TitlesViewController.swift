@@ -105,7 +105,9 @@ class TitlesViewController: ImageDisplayTableViewController {
                 if components.count > 1, let currentTitle = pages.first(where: { code == $0.code }) {
                     currentTitle.title = components[1].trimmingCharacters(in: .whitespaces)
                     if components.count > 2 {
-                        currentTitle.lastUpdated = components[2].toDateyyyyMMdd()
+                        if components[2].count == 8 {
+                            currentTitle.lastUpdated = components[2].toDateyyyyMMdd()
+                        }
                         
                         if components.count > 3, components[3].lowercased() == "subscribe" {
                             if subscriptionTitle == nil {
