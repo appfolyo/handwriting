@@ -91,9 +91,12 @@ extension UIUserInterfaceStyle {
 }
 
 extension String {
+    
+    var dateFormat: String { "yyyyMMdd" }
+    
     func toDateyyyyMMdd() -> Date? {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
+        formatter.dateFormat = dateFormat
         formatter.locale = Locale(identifier: "en_US_POSIX")
 
         return formatter.date(from: self.trimmingCharacters(in: .whitespaces)) 
