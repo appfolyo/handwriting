@@ -189,7 +189,6 @@
 /* Begin PBXShellScriptBuildPhase section */
 		D7E99F372F30F46F00A5C319 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -203,7 +202,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Paths\nSOURCE_DIR=\"${SRCROOT}/river\"\nDEST_DIR=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\n\nBOOKS_BUNDLE=\"${SOURCE_DIR}/books.bundle\"\nSAMPLE_BUNDLE=\"${SOURCE_DIR}/sample-books.bundle\"\n\necho \"📚 Handling books.bundle\"\n\nif [ -d \"$BOOKS_BUNDLE\" ]; then\n  echo \"✅ Found books.bundle – using local version\"\n  cp -R \"$BOOKS_BUNDLE\" \"$DEST_DIR/books.bundle\"\nelif [ -d \"$SAMPLE_BUNDLE\" ]; then\n  echo \"⚠️ books.bundle not found – using sample-books.bundle\"\n  cp -R \"$SAMPLE_BUNDLE\" \"$DEST_DIR/books.bundle\"\nelse\n  echo \"❌ ERROR: Neither books.bundle nor sample-books.bundle found\"\n  exit 1\nfi\n";
+			shellScript = "# Paths\nSOURCE_DIR=\"${SRCROOT}/river\"\nDEST_DIR=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\n\nBOOKS_BUNDLE=\"${SOURCE_DIR}/books.bundle\"\nSAMPLE_BUNDLE=\"${SOURCE_DIR}/sample-books.bundle\"\n\necho \"📚 Handling books.bundle\"\n\nif [ -d \"$BOOKS_BUNDLE\" ]; then\n  echo \"✅ Found books.bundle – using local version\"\n  rsync -a --delete \"$BOOKS_BUNDLE/\" \"$DEST_DIR/books.bundle/\"\nelif [ -d \"$SAMPLE_BUNDLE\" ]; then\n  echo \"⚠️ books.bundle not found – using sample-books.bundle\"\n  rsync -a --delete \"$SAMPLE_BUNDLE/\" \"$DEST_DIR/books.bundle/\"\nelse\n  echo \"❌ ERROR: Neither books.bundle nor sample-books.bundle found\"\n  exit 1\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

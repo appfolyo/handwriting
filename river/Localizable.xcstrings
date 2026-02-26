@@ -28,6 +28,12 @@
             "state" : "translated",
             "value" : "app subscription"
           }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "app feliratkozás"
+          }
         }
       }
     },
@@ -182,13 +188,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "New pages"
+            "value" : "New content"
           }
         },
         "hu" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Új oldalak"
+            "state" : "needs_review",
+            "value" : "Új tartalom"
           }
         }
       }

@@ -49,7 +49,7 @@ class ContentTableViewController: ImageDisplayTableViewController {
                 if fileName.contains(lastUpdatedString) {
                     let fileNameComponents = fileName.components(separatedBy: "-")
                     if let lastUpdatedIndex = fileNameComponents.firstIndex(where: { $0.hasSuffix(lastUpdatedString) }),
-                       fileNameComponents.count > lastUpdatedIndex {
+                       fileNameComponents.count > lastUpdatedIndex + 1 {
                         pages.forEach({ $0.lastUpdated = nil })
                         page.lastUpdated = fileNameComponents[lastUpdatedIndex + 1].toDateyyyyMMdd()
                     }

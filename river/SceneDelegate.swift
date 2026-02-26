@@ -7,6 +7,19 @@
 
 import UIKit
 
+//A key used for exchanging associated object
+var _BUNDLE_KEY = 0
+
+class BundleEx : Bundle, @unchecked Sendable {
+    
+    override func localizedString(forKey key: String, value: String?, table tableName: String?) -> String {
+        
+        let bundle : Bundle? = objc_getAssociatedObject(self, &_BUNDLE_KEY) as? Bundle
+        
+        return bundle != nil ? bundle!.localizedString(forKey: key, value: value, table: tableName) : super.localizedString(forKey: key, value: value, table: tableName)
+    }
+}
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -17,6 +30,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+
+        let langs = UserDefaults.standard.value(forKey: "AppleLanguages") as? [String]
+        
+        let alreadyStartedKey = "alreadyStartedKey"
+        let alreadyStarted = UserDefaults.standard.value(forKey: alreadyStartedKey) as? Bool ?? false
+        
+        let overrideLanguage = "hu"
+        if !alreadyStarted, langs == nil || !langs!.contains(overrideLanguage) {
+            
+            let newLangs: [String] = [overrideLanguage] + (langs ?? [])
+            UserDefaults.standard.set(newLangs, forKey: "AppleLanguages" )
+            UserDefaults.standard.set(true, forKey: alreadyStartedKey)
+            UserDefaults.standard.synchronize()
+            
+            object_setClass(Bundle.main, BundleEx.self)
+            
+            let bundle = Bundle(path: Bundle.main.path(forResource: overrideLanguage, ofType: "lproj")!)
+            objc_setAssociatedObject(Bundle.main, &_BUNDLE_KEY, bundle, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                        
+            let sb = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let vc = sb.instantiateInitialViewController()
+            self.window?.rootViewController = vc
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
