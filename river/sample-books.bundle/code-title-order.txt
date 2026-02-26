@@ -1,5 +1,7 @@
-whatsthis::What's this?::19860426
-multilevel::Document hierarchy::19450508::subscribe
+whatsthis::What's this?
+multilevel::Document hierarchy::20260226::subscribe
+newcontent::Mark new content::20260226
+subscription::Add subscription::::subscribe
 weblink::Web link
 email::E-mail link
 epub::Include .epub files
