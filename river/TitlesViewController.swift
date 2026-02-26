@@ -100,21 +100,27 @@ class TitlesViewController: ImageDisplayTableViewController {
 
             fileOrder.forEach { line in
                 let components = line.components(separatedBy: "::")
-                guard !components.isEmpty else { return }
-                let code = components[0].trimmingCharacters(in: .whitespaces)
-                if components.count > 1, let currentTitle = pages.first(where: { code == $0.code }) {
+                let code = components.first?.trimmingCharacters(in: .whitespaces) ?? ""
+                guard !components.isEmpty,
+                      let currentTitle = pages.first(where: { $0.code == code }) else {
+                    return
+                }
+
+                if components.count > 1 {
                     currentTitle.title = components[1].trimmingCharacters(in: .whitespaces)
-                    if components.count > 2 {
-                        if components[2].count == String().dateFormat.count {
-                            currentTitle.lastUpdated = components[2].toDateyyyyMMdd()
-                        }
-                        
-                        if components.count > 3, components[3].lowercased() == "subscribe" {
-                            if subscriptionTitle == nil {
-                                currentTitle.canSubscribe = true
-                            }
-                        }
-                    }
+                }
+                
+                if components.count > 2,
+                   components[2].count == String().dateFormat.count {
+                    
+                    currentTitle.lastUpdated = components[2].toDateyyyyMMdd()
+                }
+                
+                if components.count > 3,
+                   components[3].lowercased() == "subscribe",
+                   subscriptionTitle == nil {
+                    
+                    currentTitle.canSubscribe = true
                 }
             }
 
@@ -185,10 +191,11 @@ class TitlesViewController: ImageDisplayTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as! ImageCell
-        cell.contentImageView.image = pages[indexPath.row].image
-        cell.newLabel.isHidden = !pages[indexPath.row].isNew
+        let page = pages[indexPath.row]
+        cell.contentImageView.image = page.image
+        cell.newLabel.isHidden = !page.isNew
         cell.newLabel.text = .new.uppercased()
-        cell.linkSymbol.isHidden = pages[indexPath.row].contentType != .url || pages[indexPath.row].isNew
+        cell.linkSymbol.isHidden = page.contentType != .url || page.isNew
         return cell
     }
 

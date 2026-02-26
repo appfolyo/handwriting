@@ -49,7 +49,7 @@ class ImageDisplayTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let image = pages[indexPath.row].image else {
-            return 0
+            return UITableView.automaticDimension
         }
         return image.size.height * tableView.bounds.width / image.size.width
     }
