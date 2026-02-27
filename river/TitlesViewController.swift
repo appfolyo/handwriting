@@ -105,9 +105,7 @@ class TitlesViewController: ImageDisplayTableViewController {
                         loadFileNames(acceptedFiletype: ".bundle")
                         fileOrder = fileNames
                         fileOrder.sort()
-                        if contents.contains("last new only") {
-                            lastNewOnly = true
-                        }
+                        lastNewOnly = contents.contains("last new only") 
 
                     } else {
                         fileOrder = contents.split(separator: "\n").compactMap{ String( $0 )}
